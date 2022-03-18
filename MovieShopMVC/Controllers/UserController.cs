@@ -10,10 +10,15 @@ namespace MovieShopMVC.Controllers
     public class UserController : Controller
     {
         private readonly ICurrentUser _currentUser;
-
-        public UserController(ICurrentUser currentUser)
+        private readonly IUserService _purchaseService;
+        private readonly IUserService _favoriteService;
+        private readonly IUserService _reviewService;
+        public UserController(ICurrentUser currentUser, IUserService purchaseService, IUserService favoriteService, IUserService reviewService)
         {
             _currentUser = currentUser;
+            _purchaseService = purchaseService;
+            _favoriteService = favoriteService;
+            _reviewService = reviewService;
         }
 
         [HttpGet]
@@ -27,8 +32,8 @@ namespace MovieShopMVC.Controllers
             //get the user id to verify
             //send the user id to the database to get al the movies the user purchased.
             // user cookie based authentication
-
-            return View();
+            var purchaseDetails = await _purchaseService.GetAllPurchasesForUser();
+            return View(purchaseDetails);
         }
         [HttpGet]
         public async Task<IActionResult> Favorites()
@@ -53,14 +58,18 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> FavoriteMovie()
         {
             var userId = _currentUser.UserId;
-            return View();
+
+            var favoriteDetails = await _favoriteService.GetAllFavoritesForUser();
+            return View(favoriteDetails);
         }
 
         [HttpPost]
         public async Task<IActionResult> ReviewMovie()
         {
             var userId = _currentUser.UserId;
-            return View();
+
+            var reviewDetails = await _reviewService.GetAllReviewsByUser();
+            return View(reviewDetails);
         }
     }
 }

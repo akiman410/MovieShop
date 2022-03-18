@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Enities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ namespace Infrastructure.Repositories
     {
         public PurchaseRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public async Task<Purchase> GetAllPurchasesForUser(int userId)
+        {
+            var purchases = await _dbContext.Purchases.FirstOrDefaultAsync(u => u.MovieId == userId);
+            return purchases;
         }
     }
 }

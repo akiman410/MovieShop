@@ -1,88 +1,62 @@
 ﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Enities;
 using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ApplicationCore.Contracts.Repositories.IRepositories;
 
 namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        public Task AddFavorite(FavoriteRequestModel favoriteRequest)
+        private IRepository<Favorite> _favoriteRepository;
+        private IRepository<Purchase> _purchaseRepository;
+        private IRepository<Review> _reviewRepository;
+
+        public UserService(IRepository<Favorite> favoriteRepository, IRepository<Purchase> purchaseRepository, IRepository<Review> reviewRepository)
         {
-            throw new NotImplementedException();
+            _favoriteRepository = favoriteRepository;
+            _purchaseRepository = purchaseRepository;
+            _reviewRepository = reviewRepository;
+        }
+        public async Task<IEnumerable<FavoriteRequestModel>> GetAllFavoritesForUser()
+        {            
+                var favorites = await _favoriteRepository.GetAll();
+                var favoriteMovies = favorites.Select(g => new FavoriteRequestModel
+                {
+                   MovieId = g.MovieId,
+                   UserId = g.UserId,
+                });
+                return favoriteMovies ;            
         }
 
-        public Task AddMovieReview(ReviewRequestModel reviewRequest)
+        public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser()
         {
-            throw new NotImplementedException();
+            var purchases = await _purchaseRepository.GetAll();
+            var purchasedMovies = purchases.Select(g => new PurchaseRequestModel
+            {
+                Id=g.Id,
+                UserId=g.UserId,
+                MovieId=g.MovieId,
+                PurchaseDateTime=g.PurchaseDateTime,
+                PurchaseNumber=g.PurchaseNumber,
+                TotalPrice=g.TotalPrice,
+            });
+            return purchasedMovies;
         }
 
-        public Task DeleteMovieReview(int userId, int movieId)
+        public async Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task FavoriteExists(int id, int movieId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetAllFavoritesForUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetAllPurchasesForUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetAllReviewsByUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetPurchasesDetails(int userId, int movieId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateMovieReview(ReviewRequestModel reviewRequest)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<FavoriteRequestModel>> IUserService.GetAllFavoritesForUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<PurchaseRequestModel>> IUserService.GetAllPurchasesForUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<ReviewRequestModel>> IUserService.GetAllReviewsByUser(int id)
-        {
-            throw new NotImplementedException();
+            var reviews = await _reviewRepository.GetAll();
+            var reviewedMovies = reviews.Select(g => new ReviewRequestModel
+            {
+                MovieId = g.MovieId,
+                UserId = g.UserId,
+            });
+            return reviewedMovies;
         }
     }
 }

@@ -10,9 +10,9 @@ namespace ApplicationCore.Contracts.Services
     public interface IUserService
     {
 
-        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser(int id);
-        Task<IEnumerable<FavoriteRequestModel>>  GetAllFavoritesForUser(int id);
-        Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int id);
+        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser();
+        Task<IEnumerable<FavoriteRequestModel>>  GetAllFavoritesForUser();
+        Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser();
 
         //Task PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
         //Task IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);

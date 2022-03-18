@@ -8,8 +8,8 @@ using static ApplicationCore.Contracts.Repositories.IRepositories;
 
 namespace ApplicationCore.Contracts.Repositories
 {
-    public interface IPurchaseRepository: IRepository<Purchase>
+    public interface IReviewRepository : IRepository<Review>
     {
-        Task<Purchase> GetAllPurchasesForUser(int userId);
+        Task<Review> GetAllReviewsByUser(int userId);
     }
 }
