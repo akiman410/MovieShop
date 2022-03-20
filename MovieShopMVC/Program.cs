@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MovieShopMVC.Services;
 using static ApplicationCore.Contracts.Repositories.IRepositories;
+using MovieShopMVC.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 builder.Services.AddHttpContextAccessor();
+
 
 
 
@@ -52,7 +54,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+//Custom Exception Handling middleware from MVC Infra folder
+app.UseMovieShopExceptionMiddleware();
 // Middleware must call the next method to avoid short circuit
 app.UseHttpsRedirection();
 app.UseStaticFiles();
