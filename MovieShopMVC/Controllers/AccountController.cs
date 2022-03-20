@@ -49,6 +49,8 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid) return View();
+
+
             var userLogedIn = await _accountService.ValidateUser(model.Email, model.Password);
             if (userLogedIn != null)
             {
@@ -60,22 +62,21 @@ namespace MovieShopMVC.Controllers
                 // create claims object to store user claims information
 
                 var claims = new List<Claim>
-            {
-                new(ClaimTypes.Email, userLogedIn.Email),
-                new(ClaimTypes.NameIdentifier, userLogedIn.Id.ToString()),
-                new(ClaimTypes.GivenName, userLogedIn.FirstName),
-                new(ClaimTypes.Surname, userLogedIn.LastName),
-                new(ClaimTypes.DateOfBirth, userLogedIn.DateOfBirth.ToShortDateString()),
-                new("FullName", userLogedIn.FirstName + "," + userLogedIn.LastName),
-                new("Language", "en")
-            };
+                {
+                new Claim(ClaimTypes.Email, userLogedIn.Email),
+                new Claim(ClaimTypes.NameIdentifier, userLogedIn.Id.ToString()),
+                new Claim(ClaimTypes.GivenName, userLogedIn.FirstName),
+                new Claim(ClaimTypes.Surname, userLogedIn.LastName),
+                new Claim(ClaimTypes.DateOfBirth, userLogedIn.DateOfBirth.ToShortDateString()),
+                new Claim("FullName", userLogedIn.FirstName + "," + userLogedIn.LastName),
+                new Claim("Language", "en")
+                };
 
-                // identity object
+                // identity object - put all the claims in one object. claimsIdentity
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 // create the cookie
                 // SignInAsync
-
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 

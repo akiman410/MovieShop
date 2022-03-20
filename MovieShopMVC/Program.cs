@@ -34,7 +34,7 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
 });
 
-//Inject the Authentication cookie Information
+//Inject the Authentication cookie Information (dependancy injection for cookie bases authentication.
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -53,8 +53,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
-
+// Middleware must call the next method to avoid short circuit
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

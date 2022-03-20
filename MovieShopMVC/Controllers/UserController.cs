@@ -26,15 +26,16 @@ namespace MovieShopMVC.Controllers
         public async Task<IActionResult> Purchases()
         {
             // Method needs to verify whether  user is logged in
-            {
-                var userId = _currentUser.UserId;
-            }
+            //{
+            var userId = _currentUser.UserId;
+            //}
             //get the user id to verify
             //send the user id to the database to get al the movies the user purchased.
             // user cookie based authentication
             var purchaseDetails = await _purchaseService.GetAllPurchasesForUser();
             return View(purchaseDetails);
         }
+      
         [HttpGet]
         public async Task<IActionResult> Favorites()
         {
