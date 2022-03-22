@@ -76,6 +76,7 @@ namespace MovieShopAPI.Controllers
             };
 
             // add any roles to the above claims 
+            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
             //claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
