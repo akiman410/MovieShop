@@ -36,8 +36,10 @@ namespace MovieShopAPI.Controllers
             }
             return Ok(movie);
 
-            // in old .net for JSON serialization we used JSON.NET librray => very very popular
+            // in old .net NewtonSoft nuget package for JSON serialization we used JSON.NET library which is 3rd party library => very very popular
+            // Microsoft now uses System.Text=> Written by Jason NewtonSoft who joint Microsoft.
 
         }
+
     }
 }

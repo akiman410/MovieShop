@@ -26,7 +26,7 @@ namespace MovieShopAPI.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             // 2XX  200 OK, 201 Created
-            // 3XX
+            // 3XX Redirections
             // 4XX 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404
             // 5XX 500 => Internal server error
 
