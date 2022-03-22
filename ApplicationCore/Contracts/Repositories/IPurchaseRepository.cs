@@ -10,6 +10,11 @@ namespace ApplicationCore.Contracts.Repositories
 {
     public interface IPurchaseRepository: IRepository<Purchase>
     {
-        Task<Purchase> GetAllPurchasesForUser(int userId);
+        Task<IEnumerable<Purchase>> GetAllPurchasesForUser(int movieId);
+        Task<Purchase> GetUserPurchase(int userId, int movieId);
+        Task<Purchase> AddPurchase(Purchase purchase);
+
+        Task<Purchase> DeletePurchase(Purchase purchase);
+        Task<Purchase> UpdatePurchase(Purchase purchase);
     }
 }

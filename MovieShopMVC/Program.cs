@@ -24,6 +24,10 @@ builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+
 builder.Services.AddHttpContextAccessor();
 
 

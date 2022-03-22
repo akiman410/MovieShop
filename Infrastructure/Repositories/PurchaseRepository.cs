@@ -16,10 +16,34 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<Purchase> GetAllPurchasesForUser(int userId)
+        public async Task<IEnumerable<Purchase>> GetAllPurchasesForUser(int userId)
         {
-            var purchases = await _dbContext.Purchases.FirstOrDefaultAsync(u => u.MovieId == userId);
+            var purchases = await _dbContext.Purchases.Where(p => p.UserId == userId).ToListAsync();
             return purchases;
+
+        }
+        
+        public async Task<Purchase> AddPurchase(Purchase purchase)
+        {
+            _dbContext.Purchases.Add(purchase);
+            await _dbContext.SaveChangesAsync();
+            return purchase;
+        }
+        public async Task<Purchase> GetUserPurchase(int userId, int movieId)
+        {
+            var purchaseDetail = await _dbContext.Purchases.Where(p => p.UserId == userId && p.MovieId == movieId).FirstOrDefaultAsync();
+            return purchaseDetail;
+        }
+        public async Task<Purchase> DeletePurchase(Purchase purchase)
+        {
+            _dbContext.Purchases.Remove(purchase);
+            await _dbContext.SaveChangesAsync();
+            return purchase;
+        }
+
+        public Task<Purchase> UpdatePurchase(Purchase purchase)
+        {
+            throw new NotImplementedException();
         }
     }
 }

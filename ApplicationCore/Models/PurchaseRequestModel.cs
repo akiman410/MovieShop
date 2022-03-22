@@ -17,5 +17,7 @@ namespace ApplicationCore.Models
         public int MovieId { get; set; }
         public Movie Movie { get; set; }
         public User Customer { get; set; }
+
+
     }
 }

@@ -67,5 +67,11 @@ namespace Infrastructure.Repositories
             var pagedMovies = new PagedResultSet<Movie>(movies, pageNumber, pageSize, totalMoviesCountByGenre);
             return pagedMovies;
         }
+
+        public async Task<decimal> GetMoviePrice(int movieId)
+        {
+            var price = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
+            return (decimal)price.Price;
+        }
     }
 }

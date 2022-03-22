@@ -11,5 +11,6 @@ namespace ApplicationCore.Contracts.Repositories
     public interface IReviewRepository : IRepository<Review>
     {
         Task<Review> GetAllReviewsByUser(int userId);
+        Task DeleteReview(int userId, int movieId);
     }
 }

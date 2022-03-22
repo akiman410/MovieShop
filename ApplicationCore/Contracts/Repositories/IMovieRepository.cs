@@ -19,5 +19,6 @@ namespace ApplicationCore.Contracts.Repositories
         // Return Tuple (int totalCount,int totalCount, totalPage ,string) returns three object
         // Task<(IEnumerable<Movie>, int totalCount, int totalPages)> GetMoviesByGenres(int genreId, int pageSize = 30, int pageNumber = 1);
         Task<PagedResultSet<Movie>> GetMoviesByGenres(int genreId, int pageSize = 30, int pageNumber = 1);
+        Task<decimal> GetMoviePrice(int movieId);
     }
 }

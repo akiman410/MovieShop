@@ -16,6 +16,11 @@ namespace Infrastructure.Repositories
         {
         }
 
+        public Task DeleteReview(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Review> GetAllReviewsByUser(int userId)
         {
             var reviews = await _dbContext.Reviews.FirstOrDefaultAsync(u => u.UserId == userId);

@@ -4,8 +4,8 @@
 }
 
 
-  <div class="row" style="background-image: url('@Model.PosterUrl'); background-position-y">      
-          <div class="card" style="width: 10rem;">
+  <div class="row" style="background-image: url('@Model.PosterUrl');color:white">      
+          <div class="col-3" style="width: 12rem;">
             <img src="@Model.PosterUrl" class="card-img-top" alt="@Model.Title"></div>
 
          <div class="col-6" >
@@ -23,10 +23,53 @@
              <li class="list-group-item">@Model.Overview</li>  
             </ul>
          </div>
-           <div class="gap-2 col-3 mx-auto" width="20" height="10">
-                 <button type="button" class="btn btn-outline-secondary">Review</button>              
-                 <button class="btn btn-primary" type="button">Buy $@Model.Price</button>
-        </div>
+           <div class="col-3 d-grid gap-2 d-md-block">
+               <div> </div>
+               <form>
+                   <input type=submit value ="Review Movie" class="btn btn-primary"></input> 
+               </form>
+                              
+               
+@*                <!-- Buy or Watch Button trigger modal -->
+                @if(@ViewBag.MoviePurchased)
+                {
+                    <div>
+                        <button type="button" class="btn btn-primary">Watch Movie</button>
+                    </div>
+                }
+                else{
+                    <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Buy $@Model.Price</button>
+                    </div>
+                }
+                   *@
+
+                 <form asp-controller="User" asp-action="BuyMovies" method="post">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Buy $@Model.Price</button>
+                <!-- Buy Button Popup Model -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                     <h6 class="modal-title" id="staticBackdropLabel">@Model.Title</h6>
+                     <input type="hidden" value="@Model.Id" name="MovieId">
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-3" style="width: 10rem;">
+                        <img src="@Model.PosterUrl" class="card-img-top" alt="@Model.Title">              
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type=submit value = "Buy $@Model.Price"  name="btnBuyMovies" class="btn btn-primary">
+                </div>
+                </div>
+                </div>
+                </div>                  
+                </form>
+                <div class ="row pt-1"><button type ="button" class="btn btn-outline-success">WatchMovie</button></div>
+            </div>
    </div>
 
   <div class="row">

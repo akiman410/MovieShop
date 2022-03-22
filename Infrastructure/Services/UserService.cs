@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Contracts.Services;
+﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
 using ApplicationCore.Enities;
 using ApplicationCore.Models;
 using System;
@@ -12,43 +13,85 @@ namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        private IRepository<Favorite> _favoriteRepository;
-        private IRepository<Purchase> _purchaseRepository;
-        private IRepository<Review> _reviewRepository;
-
-        public UserService(IRepository<Favorite> favoriteRepository, IRepository<Purchase> purchaseRepository, IRepository<Review> reviewRepository)
+        private IFavoriteRepository _favoriteRepository;
+        private IPurchaseRepository _purchaseRepository;
+        private IReviewRepository _reviewRepository;
+        private IUserRepository _userRepository;
+        public UserService(IFavoriteRepository favoriteRepository, IReviewRepository reviewRepository, IPurchaseRepository purchaseRepository, IUserRepository userRepository)
         {
             _favoriteRepository = favoriteRepository;
-            _purchaseRepository = purchaseRepository;
             _reviewRepository = reviewRepository;
-        }
-        public async Task<IEnumerable<FavoriteRequestModel>> GetAllFavoritesForUser()
-        {            
-                var favorites = await _favoriteRepository.GetAll();
-                var favoriteMovies = favorites.Select(g => new FavoriteRequestModel
-                {
-                   MovieId = g.MovieId,
-                   UserId = g.UserId,
-                });
-                return favoriteMovies ;            
+            _purchaseRepository = purchaseRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser()
+        public Task<int> AddFavorite(FavoriteRequestModel favoriteRequest)
         {
-            var purchases = await _purchaseRepository.GetAll();
-            var purchasedMovies = purchases.Select(g => new PurchaseRequestModel
-            {
-                Id=g.Id,
-                UserId=g.UserId,
-                MovieId=g.MovieId,
-                PurchaseDateTime=g.PurchaseDateTime,
-                PurchaseNumber=g.PurchaseNumber,
-                TotalPrice=g.TotalPrice,
-            });
-            return purchasedMovies;
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser()
+        public Task AddMovieReview(ReviewRequestModel reviewRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteMovieReview(int userId, int movieId)
+        {
+            await _reviewRepository.DeleteReview(userId, movieId);
+        }
+
+        public async Task<bool> FavoriteExists(int id, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<FavoriteRequestModel>> GetAllFavoritesForUser(int userId)
+        {
+            var favorite = await _favoriteRepository.GetAllFavoritesForUser(userId);
+            var movieCards = new List<PurchaseRequestModel>();
+
+            // mapping entities data in to models data
+            foreach (var movie in favorite)
+                movieCards.Add(new PurchaseRequestModel
+                {
+                    UserId = userId,
+                    MovieId = movie.MovieId,
+                    Movie = movie.Movie,
+                                        
+                });
+
+            return (IEnumerable<FavoriteRequestModel>)movieCards;
+        }
+
+        public Task<IEnumerable<FavoriteRequestModel>> GetAllFavoritesForUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser(int userId)
+        {
+            var purchases = await _purchaseRepository.GetAllPurchasesForUser(userId);
+            var movieCards = new List<PurchaseRequestModel>();
+
+            // mapping entities data in to models data
+            foreach (var movie in purchases)
+                movieCards.Add(new PurchaseRequestModel
+                {
+                   UserId=userId,
+                   MovieId=movie.Id,
+                   Movie=movie.Movie,
+                   TotalPrice=movie.TotalPrice,
+                   PurchaseDateTime=movie.PurchaseDateTime,
+                   PurchaseNumber=movie.PurchaseNumber,
+                   Id=movie.Id
+                });
+
+            return movieCards;
+
+
+        }
+
+        public async Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int id)
         {
             var reviews = await _reviewRepository.GetAll();
             var reviewedMovies = reviews.Select(g => new ReviewRequestModel
@@ -57,6 +100,31 @@ namespace Infrastructure.Services
                 UserId = g.UserId,
             });
             return reviewedMovies;
+        }
+
+        public Task<PurchaseRequestModel> GetPurchasesDetails(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsMoviePurchased(int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateMovieReview(ReviewRequestModel reviewRequest)
+        {
+            throw new NotImplementedException();
         }
     }
 }

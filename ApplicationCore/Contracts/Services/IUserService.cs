@@ -10,21 +10,20 @@ namespace ApplicationCore.Contracts.Services
     public interface IUserService
     {
 
-        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser();
-        Task<IEnumerable<FavoriteRequestModel>>  GetAllFavoritesForUser();
-        Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser();
+        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUser(int userId);
+        Task<IEnumerable<FavoriteRequestModel>>  GetAllFavoritesForUser(int userId);
+        Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int userId);
 
-        //Task PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
-        //Task IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
+        Task<bool> IsMoviePurchased(int movieId);
      
-        //Task GetPurchasesDetails(int userId, int movieId);
-        //Task AddFavorite(FavoriteRequestModel favoriteRequest);
-        //Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
-        //Task FavoriteExists(int id, int movieId);
+        Task<PurchaseRequestModel> GetPurchasesDetails(int userId, int movieId);
+        Task<int> AddFavorite(FavoriteRequestModel favoriteRequest);
+        Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
+        Task<bool> FavoriteExists(int id, int movieId);
         
-        //Task AddMovieReview(ReviewRequestModel reviewRequest);
-        //Task UpdateMovieReview(ReviewRequestModel reviewRequest);
-        //Task DeleteMovieReview(int userId, int movieId);
+        Task AddMovieReview(ReviewRequestModel reviewRequest);
+        Task UpdateMovieReview(ReviewRequestModel reviewRequest);
+        Task DeleteMovieReview(int userId, int movieId);
        
     }
 }
