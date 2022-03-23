@@ -10,16 +10,19 @@
                     <li class="list-group-item align-content-center" *ngFor="Let genre of genre">
                         <span class="badge rounded-pill bg-secondary">{{movie.genres}}</span>
                     </li>
-                    <!--li><span class="badge" [ngClass]="{'bg-success': {{movie.rating}} >= 9">{{movie.rating}}</span></-li-->
+                   
+                    <li class="list-group-item"><a>Rating : </a><span class="badge rounded-pill bg-secondary">{{ movie.rating | number: '1.0-2' }}</span></li>
                     <li class="list-group-item align-content-center">{{movie.overview}}</li>
                 </ul>
             </div>
             <div class="col-md-2 gap-2">
                 <form>
                     <input type=submit value ="Review Movie" class="btn btn-primary"> 
+                    <a> </a>
                 </form>
+                
                 <form asp-controller="User" asp-action="BuyMovies" method="post">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">${{movie.price | currency}}</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Buy ${{movie.price | currency}}</button>
                     
                     <!-- Buy Button Popup Model -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

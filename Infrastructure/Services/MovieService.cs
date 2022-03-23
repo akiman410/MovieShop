@@ -53,7 +53,8 @@ namespace Infrastructure.Services
                 BackdropUrl = movie.BackdropUrl,
                 PosterUrl = movie.PosterUrl,
                 ReleaseDate = movie.ReleaseDate,
-                TmdbUrl = movie.TmdbUrl
+                TmdbUrl = movie.TmdbUrl,
+                Rating = movie.Rating,
             };
 
             movieDetails.Genres = new List<GenreModel>();
