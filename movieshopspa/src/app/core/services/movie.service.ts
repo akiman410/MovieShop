@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MovieCard } from 'src/app/shared/models/moviecard'
+import { MovieCard } from 'src/app/shared/models/moviecard';
 import { environment } from 'src/environments/environment';
+import { MovieDetails } from 'src/app/shared/models/movieDetails'
 
 
 @Injectable({
@@ -21,4 +22,9 @@ export class MovieService {
     //Observable as better version of promises
     //RxJS
   }
+
+    getMovieDetails(id: number): Observable<MovieDetails> {
+    //  return this.http.get<MovieDetails>(`${environment.apiBaseUrl});
+    return this.http.get<MovieDetails>(`${environment.apiBaseUrl}movies/${id}`);
+    }
 }
