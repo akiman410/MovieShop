@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { MovieCardComponent } from './shared/components/movie-card/movie-card.component';
+import { MoviesComponent } from './movies/movies.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    MoviesComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,
