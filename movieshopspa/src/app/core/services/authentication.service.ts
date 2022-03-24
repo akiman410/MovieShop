@@ -24,7 +24,11 @@ export class AuthenticationService {
       })
     )
   }
-
+//logout
+  logout(){
+    //delete token from the local storage
+    localStorage.removeItem('token');
+  }
 
 }
 
