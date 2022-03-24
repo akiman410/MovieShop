@@ -1,18 +1,15 @@
 
 
-    <div class="row flex-fill" style="background-size: cover; background-image: url({{movie.posterUrl}})">
+    <div class="row flex-fill" style="background-size: cover; background-image: url({{movie.backdropUrl}})">
         <div class="col-md-3 style=width: 12rem">           
                 <img src="{{movie.posterUrl}}" alt="{{movie.title}}" />
         </div>         
-        <div class="col-5 ">
-                <ul class="list-unstyled">
-                    <li class="list-group-item align-content-center"><h2>{{movie.title}}</h2></li>
-                    <li class="list-group-item align-content-center" *ngFor="Let genre of genre">
-                        <span class="badge rounded-pill bg-secondary">{{movie.genres}}</span>
-                    </li>
-                   
-                    <li class="list-group-item"><a>Rating : </a><span class="badge rounded-pill bg-secondary">{{ movie.rating | number: '1.0-2' }}</span></li>
-                    <li class="list-group-item align-content-center">{{movie.overview}}</li>
+        <div class="col-5" style="color: white;">
+                <ul class="list-unstyled list-group list-group-flush">
+                    <li class="list-group-flush list-group-horizontal"><div><h2>{{movie.title}}</h2></div></li>
+                    <li class="list-group list-group-horizontal"><div *ngFor="let movie of movie.genres"><a href="{{movie.name}}"><span class="badge rounded-pill bg-secondary">{{movie.name}}</span></a></div></li>                   
+                    <li class="list-group-flush list-group-horizontal"><a>Rating : </a><span class="badge rounded-pill bg-secondary">{{ movie.rating | number: '1.0-2' }}</span></li>
+                    <li class="list-group-flush list-group-horizontal">{{movie.overview}}</li>
                 </ul>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-end">
@@ -50,34 +47,36 @@
                     </!--div-->                
                 </form>
         </div>
-            
-
-        </div>
+    </div>
 
 
 
 <!-- using ngClass directive to add/remove css classes based on condition -->
-<div class="row">
-    <div class="col-3 col-xl-3 col-sm-2 col-lg-3">
-      <h4>MOVIE FACTS</h4>
-       <ul class="list-unstyled">
-          <li class="list-group-item"><a>Release Date : </a><span class="badge rounded-pill bg-secondary">{{movie.releaseDate}}</span></li>
-          <li class="list-group-item"><a>Run Time : </a><span class="badge rounded-pill bg-secondary">{{movie.runTime}}</span></li>
-          <li class="list-group-item"><a>Box Office :  </a><span class="badge rounded-pill bg-secondary">{{movie.revenue | currency}}</span></li>
-          <li class="list-group-item"><a>Budget : </a><span class="badge rounded-pill bg-secondary">{{movie.budget | currency}}</span></li>  
-        </ul>
+    <div class="row">
+        <div class="col-3 col-xl-3 col-sm-2 col-lg-3">
+            <h4>MOVIE FACTS</h4>
+            <ul class="list-unstyled">
+                <li class="list-group-item"><a>Release Date : </a><span class="badge rounded-pill bg-secondary">{{movie.releaseDate}}</span></li>
+                <li class="list-group-item"><a>Run Time : </a><span class="badge rounded-pill bg-secondary">{{movie.runTime}}</span></li>
+                <li class="list-group-item"><a>Box Office :  </a><span class="badge rounded-pill bg-secondary">{{movie.revenue | currency}}</span></li>
+                <li class="list-group-item"><a>Budget : </a><span class="badge rounded-pill bg-secondary">{{movie.budget | currency}}</span></li>  
+            </ul>
         <div>
-        <h3>Trailers</h3>    
-        <!--ul class="list-unstyled">
-            @foreach (var Model in Model.Trailers)
-                {    
-                    <li><a href="@Model.TrailerUrl">@Model.Name &nbsp</a></li>
-                }
-        </!--ul--> 
+        <h3>Trailers</h3>  
+        <ol class="list-group list-group-numbered"><li><div *ngFor="let movie of movie.trailers"><a href="{{movie.trailerUrl}}">{{movie.name}}</a></div></li></ol>      
         </div>
     </div>
     <div class="col-6">
-        <h5>CAST</h5>
+        <h5>CAST</h5>     
+            <div  *ngFor="let movie of movie.casts">  
+                <ul class="list-group list-group-horizontal" >
+                    <div class="ms-2 me-auto"><li class="list-group list-group-horizontal" ><a href="{{movie.profilePath}}">{{movie.character}}</a></li>
+                    </div>
+                    <div class="ms-2 me-auto" ><li class="list-group list-group-horizontal">{{movie.name}}</li></div>
+                    <div class="ms-2 me-auto"><li class="list-group list-group-horizontal">{{movie.character}}</li></div>                    
+                </ul>              
+            </div>           
+        
       <!--ul class="list-unstyled">
              @foreach (var Model in Model.Casts)
                 {    <li><img src="@Model.ProfilePath" alt="@Model.Name" width="40" height="40">
