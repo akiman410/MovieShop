@@ -15,7 +15,7 @@ export interface MovieDetails {
     budget:      number;
     revenue:     number;
     imdbUrl:     string;
-    tmdbUrl:     string;
+   
     releaseDate: string;
     runTime:     number;
     price:       number;
