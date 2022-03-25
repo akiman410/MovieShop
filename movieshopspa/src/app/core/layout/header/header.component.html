@@ -11,18 +11,18 @@
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
 
-              <!--ng-container *ngIf="!isLoggedIn"-->
+              <ng-container *ngIf="!isLoggedIn">
                   <li class="nav-item">
                       <a [routerLink]="[ '/account/login']" class="nav-link">Login</a>
                   </li>
                   <li class="nav-item">
                       <a [routerLink]="[ '/account/register']" class="nav-link">Register</a>
                   </li>
-              <!--/-ng-container>
+                </ng-container>
               <ng-container *ngIf="isLoggedIn">
                   <span> {{ user.family_name + ' ' + user.given_name }} </span>
                   <a [routerLink]="[ '/']" (click)="logout()" class="nav-link">Logout</a>
-              </ng-container-->
+              </ng-container>
           </ul>
       </div>
   </div>
