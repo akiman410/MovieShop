@@ -1,0 +1,102 @@
+
+
+    <div class="row flex-fill" style="background-size: cover; background-image: url({{movie.backdropUrl}})">
+        <div class="col-md-3 style=width: 12rem">           
+                <img src="{{movie.posterUrl}}" alt="{{movie.title}}" />
+        </div>         
+        <div class="col-5" style="color: white; align-items:stretch;">
+                <ul class="list-unstyled list-group list-group-flush"><br>
+                    <li class="list-group-flush list-group-horizontal"><div><h2>{{movie.title}}</h2></div></li><br>
+                    <li class="list-group list-group-horizontal" >Genres :<div *ngFor="let movie of movie.genres"><a href="{{movie.name}}"><span class="badge rounded-pill bg-secondary">{{movie.name}}</span></a></div></li><br>                   
+                    <li class="list-group-flush list-group-horizontal"><a>Rating : </a><span class="badge rounded-pill bg-secondary">{{ movie.rating | number: '1.0-2' }}</span></li><br>
+                    <li class="list-group-flush list-group-horizontal"><div class="ms-2 me-auto">{{movie.overview}}</div></li>
+                </ul>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-end">
+                <form>
+                    <input type=submit value ="Review Movie" class="btn btn-primary"> 
+                    <a> </a>
+                </form>
+                
+                <form asp-controller="User" asp-action="BuyMovies" method="post">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Buy {{movie.price | currency}}</button>
+                    
+                    <!-- Buy Button Popup Model -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="staticBackdropLabel">{{movie.title}}</h6>
+                                        <input type="hidden" value="{{movie.id}}" name="{{movie.id}}">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-3" style="width: 10rem;">
+                                        <img src="{{movie.posterUrl}}" class="card-img-top" alt={{movie.title}}>              
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <input type=submit value = "Buy $@Model.Price"  name="btnBuyMovies" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <!--div class ="row pt-1">
+                        <button type="button" class="btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">WatchMovie</button>
+                    </!--div-->                
+                </form>
+        </div>
+    </div>
+
+
+
+<!-- using ngClass directive to add/remove css classes based on condition -->
+    <div class="row">
+        <div class="col-3 col-xl-3 col-sm-2 col-lg-3">
+            <h4>MOVIE FACTS</h4>
+            <ul class="list-unstyled">
+                <li class="list-group-item"><a>Release Date : </a><span class="badge rounded-pill bg-secondary">{{movie.releaseDate}}</span></li>
+                <li class="list-group-item"><a>Run Time : </a><span class="badge rounded-pill bg-secondary">{{movie.runTime}}</span></li>
+                <li class="list-group-item"><a>Box Office :  </a><span class="badge rounded-pill bg-secondary">{{movie.revenue | currency}}</span></li>
+                <li class="list-group-item"><a>Budget : </a><span class="badge rounded-pill bg-secondary">{{movie.budget | currency}}</span></li>  
+            </ul>
+        <div>
+            <h3>Trailers</h3>  
+                
+                   
+                          <div class="row mx-auto p-8" *ngFor="let movie of movie.trailers"><br>
+                            <ul class="list-group list-group-horizontal" style="list-style-type:none;">
+                                <div class="p-3"> 
+                                    <li class="list-group list-group-horizontal"><a href="{{movie.trailerUrl}}">{{movie.name}}</a></li>
+                                </div>                                 
+                            </ul>                                                        
+                         </div>
+  
+        </div>
+    </div>
+    <div class="col-6">
+        <h5>CAST</h5>     
+            <div class="row mx-auto p-8" *ngFor="let movie of movie.casts"><br>  
+                <ul class="list-group list-group-horizontal" style="list-style-type:none;">
+                    <div class="p-3">
+                        <li><a href="{{movie.profilePath}}">
+                            <img src="{{movie.profilePath}}" alt="{{movie.name}}" style=" width:40px;height:40px;border-radius: 50% ;">                        
+                        </a></li>
+                    </div>
+                    <div class="p-3"><li class="list-group list-group-horizontal">{{movie.name}}</li></div>
+                                            
+                    <div class="p-3"><li class="list-group list-group-horizontal">appearing as -{{movie.character}}</li></div>
+                                     
+                </ul>              
+            </div>           
+    <div class="col-3">  
+        
+    </div>
+  </div>
+<!--h4>
+    Movie Rating :<span class="badge" [ngClass]="{'bg-success': movie.rating >= 9, 'bg-danger' : movie.rating==0}">
+        {{movie.rating}} </span>
+</!--h4-->
+
+<!-- Using Pipes -->

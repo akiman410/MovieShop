@@ -40,13 +40,20 @@ namespace MovieShopAPI.Controllers
             // Microsoft now uses System.Text=> Written by Jason NewtonSoft who joint Microsoft.
 
         }
+        
+        [Route("top-grossing")]
+        [HttpGet]
+        public async Task<IActionResult> GetTopGrossing()
+
      
         [Route("top-grossing")]
         [HttpGet]
         public async Task<IActionResult> Index()
+
         {
             var movies = await _movieService.GetTop30GrossingMovies();
             return Ok(movies);
         }
+
     }
 }

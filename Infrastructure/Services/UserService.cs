@@ -87,8 +87,6 @@ namespace Infrastructure.Services
                 });
 
             return movieCards;
-
-
         }
 
         public async Task<IEnumerable<ReviewRequestModel>> GetAllReviewsByUser(int id)
@@ -107,9 +105,24 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+        public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
         {
-            throw new NotImplementedException();
+            var movieId = purchaseRequest.MovieId;
+            //var purchases = await _purchaseRepository.GetAllPurchasesForUser(userId);
+
+            var purchase = new Purchase
+            {
+                UserId = userId, 
+                Id = purchaseRequest.Id,
+                Customer=purchaseRequest.Customer,
+                MovieId=movieId,
+                PurchaseNumber=purchaseRequest.PurchaseNumber,
+                PurchaseDateTime=purchaseRequest.PurchaseDateTime,
+                TotalPrice=purchaseRequest.TotalPrice,
+                                
+            };
+            var newPurchase = await _purchaseRepository.UpdatePurchase(purchase);
+            return true;
         }
 
         public Task<bool> IsMoviePurchased(int movieId)

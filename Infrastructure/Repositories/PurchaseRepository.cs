@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Purchase>> GetAllPurchasesForUser(int userId)
         {
-            var purchases = await _dbContext.Purchases.Where(p => p.UserId == userId).ToListAsync();
+            var purchases = await _dbContext.Purchases.Include(m => m.Movie).Where(p => p.UserId == userId).ToListAsync();
             return purchases;
 
         }
@@ -41,9 +41,11 @@ namespace Infrastructure.Repositories
             return purchase;
         }
 
-        public Task<Purchase> UpdatePurchase(Purchase purchase)
+        public async Task<Purchase> UpdatePurchase(Purchase purchase)
         {
-            throw new NotImplementedException();
+            _dbContext.Purchases.Add(purchase);
+             await _dbContext.SaveChangesAsync();
+            return purchase;
         }
     }
 }

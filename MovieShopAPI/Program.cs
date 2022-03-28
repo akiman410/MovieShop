@@ -66,6 +66,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(policyBuilder =>
+{
+    policyBuilder.WithOrigins(app.Configuration.GetValue<string>("clientUrl")).AllowCredentials().AllowAnyMethod().AllowAnyHeader();
+});
+
 app.UseHttpsRedirection();
 
 //Very important step
