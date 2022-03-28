@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationCore.Contracts.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class CastController : Controller
     {
-        public IActionResult Index()
+        private readonly ICastService _castService;
+        public CastController(ICastService castService)
         {
-            return View();
+            _castService = castService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Cast(int id)
+        {
+            var castDetails = await _castService.GetCastDetailsById(id);
+            return View(castDetails);
         }
     }
 }
