@@ -68,7 +68,7 @@ namespace MovieShopMVC.Controllers
                 TotalPrice = moviePrice,
                 PurchaseDateTime= DateTime.UtcNow,
             };
-                
+                 await _purchaseService.IsMoviePurchased(purchaseModel, userId);
             return RedirectToAction("Purchases");
         }
 
