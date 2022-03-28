@@ -112,7 +112,7 @@ namespace Infrastructure.Services
 
             var purchase = new Purchase
             {
-                UserId = userId,
+                UserId = userId, 
                 Id = purchaseRequest.Id,
                 Customer=purchaseRequest.Customer,
                 MovieId=movieId,
