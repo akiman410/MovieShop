@@ -49,11 +49,6 @@ namespace MovieShopMVC.Controllers
             return View("pagedMovies", pagedMovies);
         }
 
-        [HttpGet]
-        public IActionResult TopMovies()
-        {
-            return View();
-        }
 
     }
 }
