@@ -28,10 +28,10 @@ namespace Infrastructure.Repositories
 
         public override async Task<Movie> GetById(int id)
         {
-            // First throws exeception if no matching record is found
-            // FirstOrDefault throws an exception if it find more than 1 and return null if non found
-            // Single throws exeception if the records found are null or greater than 1
-            // SingleOrDefault throws exeception greater than 1 
+            // First throws exeception if no matching record is found if it finds more than one it will return first record. (x=0 or x>1)
+            // FirstOrDefault throws an exception if it find more than 1 and return null if non found ({x=0 or x =1} but not x>1)
+            // Single throws exeception if the records found are null or greater than 1 (x<1>x)
+            // SingleOrDefault throws exeception greater than 1 (x>1)
 
             // we need to use Include method
             var movieDetails = await _dbContext.Movies.Include(m => m.Genres).ThenInclude(m => m.Genre)
