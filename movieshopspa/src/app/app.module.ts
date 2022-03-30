@@ -28,6 +28,6 @@ import { MovieDetailsComponent } from './movies/movie-details/movie-details.comp
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] //bootstrap calls appComponent.ts
 })
 export class AppModule { }
