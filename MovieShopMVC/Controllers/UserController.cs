@@ -73,7 +73,7 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FavoriteMovie()
+        public async Task<IActionResult> FavoriteMovie(int movieId)
         {
             var userId = _currentUser.UserId;
 
@@ -82,7 +82,7 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReviewMovie()
+        public async Task<IActionResult> ReviewMovie(int movieId)
         {
             var userId = _currentUser.UserId;
 
