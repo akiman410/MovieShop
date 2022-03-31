@@ -5,7 +5,7 @@ import { CreateCastComponent } from './create-cast/create-cast.component';
 import { CreateMovieComponent } from './create-movie/create-movie.component';
 
 const routes: Routes = [
-  // http://localhost:4200/admin/createmovie 
+  // http://localhost:4200/admin/ 
   {
     path: '', component: AdminComponent,
     children: [
