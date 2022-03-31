@@ -9,7 +9,7 @@
                     <li class="list-group-flush list-group-horizontal"><div><h2>{{movie.title}}</h2></div></li><br>
                     <li class="list-group list-group-horizontal" >Genres :<div *ngFor="let movie of movie.genres"><a href="{{movie.name}}"><span class="badge rounded-pill bg-secondary">{{movie.name}}</span></a></div></li><br>                   
                     <li class="list-group-flush list-group-horizontal"><a>Rating : </a>
-                        <span class="badge rounded-pill bg-secondary" [ngClass]="{'bg-success': movie.rating! >=9, 'bg-secondary': movie.rating! >=5 && movie.rating! <9, 'bg-danger': movie.rating! <5}">
+                        <span class="badge rounded-pill bg-secondary" [ngClass]="{'badge bg-success': movie.rating! >=8, 'bg-secondary': movie.rating! >=5 && movie.rating! <8, 'bg-danger': movie.rating! <5}">
                             {{ movie.rating | number: '1.0-2' }}
                         </span>
                         
