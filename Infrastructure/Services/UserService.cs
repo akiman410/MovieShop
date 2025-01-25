@@ -35,9 +35,15 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task DeleteMovieReview(int userId, int movieId)
+        public async Task DeleteMovieReview(Review review)
         {
-            await _reviewRepository.DeleteReview(userId, movieId);
+            await _reviewRepository.DeleteReview(review);
+            
+        }
+
+        public Task DeleteMovieReview(int userId, int movieId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> FavoriteExists(int id, int movieId)
@@ -101,6 +107,11 @@ namespace Infrastructure.Services
         }
 
         public Task<PurchaseRequestModel> GetPurchasesDetails(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PurchaseRequestModel> GetPurchasesDetails(ReviewRequestModel reviewRequest)
         {
             throw new NotImplementedException();
         }

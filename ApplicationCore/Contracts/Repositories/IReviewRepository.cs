@@ -10,7 +10,10 @@ namespace ApplicationCore.Contracts.Repositories
 {
     public interface IReviewRepository : IRepository<Review>
     {
-        Task<Review> GetAllReviewsByUser(int userId);
-        Task DeleteReview(int userId, int movieId);
+        Task<IEnumerable<Review>> GetAllReviewsByUser(int userId);
+        Task<Review> AddReview(Review review);
+
+        Task<Review> DeleteReview(Review review);
+        Task<Review> UpdateReview(Review review);
     }
 }

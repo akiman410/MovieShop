@@ -16,15 +16,31 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public Task DeleteReview(int userId, int movieId)
+        public async Task<Review> AddReview(Review review)
         {
-            throw new NotImplementedException();
+            _dbContext.Reviews.Add(review);
+            await _dbContext.SaveChangesAsync();
+            return review;
         }
 
-        public async Task<Review> GetAllReviewsByUser(int userId)
+        public async Task<Review> DeleteReview(Review review)
         {
-            var reviews = await _dbContext.Reviews.FirstOrDefaultAsync(u => u.UserId == userId);
+            _dbContext.Reviews.Remove(review);
+            await _dbContext.SaveChangesAsync();
+            return review;
+        }
+
+        public async Task<IEnumerable<Review>> GetAllReviewsByUser(int userId)
+        {
+            var reviews = await _dbContext.Reviews.Include(m => m.Movie).Where(p => p.User.Id == userId).ToListAsync();
             return reviews;
+        }
+
+        public async Task<Review> UpdateReview(Review review)
+        {
+            _dbContext.Reviews.Update(review);
+            await _dbContext.SaveChangesAsync();
+            return review;
         }
     }
 }
